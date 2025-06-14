@@ -8,6 +8,36 @@
 /* Divider styling for the application */
 .divider {
   width: 5px;
-  background-color: #00000061;
+  background-color: rgba(0, 0, 0, 0.666);
   height: 100%;
+}
+
+/* Side Panel styling */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  background-color: #f2f2f2;
+  align-items: center;
+}
+
+.components-title {
+
+}
+
+.icon-button {
+  width: 80px;
+  height: 60px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: white;
+  border: 1.5px solid rgba(0, 0, 0, 0.666);
+  border-radius: 8px;
+  cursor: grab;
+  transition: background-color 0.2s ease;
+  text-align: center;
+}
+
+.canvas {
+
 }
