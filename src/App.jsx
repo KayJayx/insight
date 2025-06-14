@@ -5,15 +5,21 @@ import Canvas from './components/Canvas'
 function App() {
   return (
     <div className="app-container">
-      <aside className="side-panel">
-        <SidePanel />
-      </aside>
+      {/*
+      This div with className app-container, is used to split the webpage
+      into 3 sections basically. The side panel which is on the left hand
+      side a vertical border separating the side panel and another called
+      the canvas.
+      */}
 
+      {/* Side Panel Section */}
+      <SidePanel />
+
+      {/* Divider Section */}
       <div className="divider" />
 
-      <main className="canvas-area">
-        <Canvas />
-      </main>
+      {/* Canvas Section */}
+      <Canvas />
     </div>
   )
 }
