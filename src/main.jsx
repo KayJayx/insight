@@ -8,7 +8,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/*
     The drag and drop capabaility can only be added if the App is wrapped
-    around react's drag and drop and HTML drag and drop components.
+    around HTML/react's drag and drop components.
     */}
     <DndProviderWrapper>
       <App />
