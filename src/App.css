@@ -5,18 +5,11 @@
   width: 100%;
 }
 
-/* Divider styling for the application */
-.divider {
-  width: 5px;
-  background-color: rgba(0, 0, 0, 0.666);
-  height: 100%;
-}
-
 /* Side Panel styling */
 .side-panel {
   display: flex;
   flex-direction: column;
-  width: 150px;
+  width: 130px;
   background-color: #f2f2f2;
   align-items: center;
 }
@@ -39,6 +32,13 @@
   cursor: grab;
   transition: background-color 0.2s ease;
   text-align: center;
+}
+
+/* Divider styling for the application */
+.divider {
+  width: 2.5px;
+  background-color: rgba(0, 0, 0, 0.666);
+  height: 100%;
 }
 
 /* Canvas styling */
