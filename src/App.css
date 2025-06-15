@@ -13,24 +13,25 @@
   background-color: #f2f2f2;
   align-items: center;
 }
-
-/*
-.components-title {
-
+.side-panel h3 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 1rem 0;       /* space above and below */
 }
-*/
+.side-panel hr {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-top: 1.2px solid rgba(0, 0, 0, 0.666); /* light gray line */
+  width: 90%;
+}
 
 /* Side Panel components/buttons styling */
 .icon-button {
-  width: 80px;
-  height: 60px;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+  width: inherit;
+  height: 50px;
   background-color: white;
-  border: 1.5px solid rgba(0, 0, 0, 0.666);
-  border-radius: 8px;
-  cursor: grab;
-  transition: background-color 0.2s ease;
+  border: none;
   text-align: center;
 }
 
