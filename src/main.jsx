@@ -5,9 +5,6 @@ import './index.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* DndContext provides drag-and-drop capabilities using dnd-kit */}
-    <DndContext>
       <App />
-    </DndContext>
   </StrictMode>,
 )
