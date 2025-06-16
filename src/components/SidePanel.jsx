@@ -16,7 +16,7 @@ function SidePanel() {
       {/* Widgets Title */}
       <h3>Widgets</h3>
 
-      {/* First Button, testig for now */}
+      {/* First Button */}
       <button
         ref={setNodeRef}
         className="icon-button"
