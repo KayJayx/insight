@@ -1,39 +1,28 @@
-import { useDrag } from 'react-dnd'
+import { useDraggable } from '@dnd-kit/core';
 
 function SidePanel() {
 
-  // Passing in an anonymous function into the useDrag function
-  // the anonymous function returns 3 things: type, item, collect
-  //
-  // useDrag on the other hand returns an array of two elements
-  // the first being the isDragging member of an object and a 
-  // function called drag
-  const [{ isDragging }, drag] = useDrag(() => ({
-
-    // type is a required string, it helps match the drag source
-    // to valid drop target (accept on drop)
-    type: 'floating-window',
-
-    // item is an optional function, it returns the object you
-    // want to pass to the drop handler
-    item: () => ({ type: 'empty-window' }),
-
-    // collect is an optional function, it lets you track drag
-    // state (like isDragging) using the monitor object
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
+  // Calls the useDraggable function which returns 3 items:
+  // attributes and listeners --> these attach required drag behaviors to the button
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: 'add-empty-window',
+    data: { type: 'empty-window' }
+  });
 
   return (
     // Side Panel Div
     <div className="side-panel">
 
-      {/* Components Title */}
-      <h3>Components</h3>
+      {/* Widgets Title */}
+      <h3>Widgets</h3>
 
       {/* First Button, testig for now */}
-      <button ref={drag} className="icon-button">
+      <button
+        ref={setNodeRef}
+        className="icon-button"
+        {...attributes}
+        {...listeners}
+      >
         Add Window
       </button>
 
