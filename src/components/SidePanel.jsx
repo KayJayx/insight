@@ -5,7 +5,7 @@ function SidePanel() {
   // Calls the useDraggable function which returns 3 items:
   // attributes and listeners --> these attach required drag behaviors to the button
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
-    id: 'add-empty-window',
+    id: 'empty-window-button',
     data: { type: 'empty-window' }
   });
 
@@ -22,12 +22,13 @@ function SidePanel() {
         className="icon-button"
         {...attributes}
         {...listeners}
+        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       >
         Add Window
       </button>
 
     </div>
-  )
+  );
 }
 
 export default SidePanel
