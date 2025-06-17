@@ -1,11 +1,6 @@
 import './App.css';
-import { useState, useCallback } from 'react';
-import {
-  DndContext,
-  useSensor,
-  useSensors,
-  PointerSensor
-} from '@dnd-kit/core';
+import { useState, useCallback, useRef } from 'react';
+import { DndContext, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 
 import SidePanel from './components/SidePanel';
 import Canvas from './components/Canvas';
@@ -13,88 +8,64 @@ import Canvas from './components/Canvas';
 function App() {
   const sensors = useSensors(useSensor(PointerSensor));
   const [windows, setWindows] = useState([]);
+  const canvasRef = useRef(null);
+  const GRID_SIZE = 20;
 
   const handleDragEnd = useCallback((event) => {
-
-    const { over, active, activatorEvent} = event;
-    if (!over || over.id !== 'canvas-dropzone') return;
-
-    console.log("event" + event);
-    console.log("activatorEvent" + activatorEvent);
-
-    const type = active?.data?.current?.type;
-
-    if (type === 'spawn-window') {
-
-      const canvasEl = document.getElementById('canvas');
-      if (!canvasEl) return;
-
-      const canvasRect = canvasEl.getBoundingClientRect();
-
-      const clientX = activatorEvent.clientX;
-      const clientY = activatorEvent.clientY;
-
-      console.log("Activator Pos: " + activatorEvent.clientX + " " + activatorEvent.clientY)
-      console.log("Canvas Pos: " + canvasRect.left + " " + canvasRect.top)
+    const { active, delta } = event;
+    if (!active || !canvasRef.current) return;
   
-      const x = clientX - canvasRect.left;
-      const y = clientY - canvasRect.top;
-
-      console.log("New Win Pos: " + x + " " + y)
-
-      const newWindow = {
-        id: crypto.randomUUID(),
-        type: 'floating-window',
-        position: { x, y }
-      };
-
-      setWindows(prev => [...prev, newWindow]);
-    }
-
-    if (type === 'floating-window') {
-      const id = event.active?.id;
-      const delta = event.delta;
-
-
-    }
-  }, []);
-
-  const handleDragMove = useCallback((event) => {
-    // const { active, delta } = event;
-
-    // console.log("handleDragMove")
-
-    // const pointerX = active.rect.left + delta.x;
-    // const pointerY = active.rect.top + delta.y;
-
-    // console.log("active left" + active.rect.left)
-    // console.log("active top" + active.rect.top)
-    // console.log("delta x" + delta.x)
-    // console.log("delta y" + delta.y)
-
-    // setMousePos({ x: pointerX, y: pointerY });
-  }, []);
-
-  const updateWindowPosition = useCallback((id, newPos) => {
-    setWindows(prev =>
-      prev.map(w => w.id === id ? { ...w, position: newPos } : w)
-    );
+    const id = active.id;
+  
+    const canvasRect = canvasRef.current.getBoundingClientRect();
+  
+    const windowWidth = 300;
+    const windowHeight = 200;
+  
+    setWindows(prev => {
+      const draggedWindow = prev.find(w => w.id === id);
+      if (!draggedWindow) return prev;
+  
+      const startX = draggedWindow.position.x;
+      const startY = draggedWindow.position.y;
+  
+      let newX = startX + delta.x;
+      let newY = startY + delta.y;
+  
+      const maxX = canvasRect.width - windowWidth;
+      const maxY = canvasRect.height - windowHeight;
+  
+      newX = Math.max(0, Math.min(newX, maxX));
+      newY = Math.max(0, Math.min(newY, maxY));
+  
+      return prev.map(w =>
+        w.id === id ? { ...w, position: { x: newX, y: newY } } : w
+      );
+    });
   }, []);
 
   const handleCloseWindow = useCallback((id) => {
-    console.log("Closed Window" + id)
     setWindows(prev => prev.filter(w => w.id !== id));
   }, []);
 
+  const handleNewWindow = useCallback(() => {
+    const newWindow = {
+      id: crypto.randomUUID(),
+      type: 'floating-window',
+      position: { x: 100, y: 100 } // default spawn position
+    };
+    setWindows(prev => [...prev, newWindow]);
+  }, []);
+
   return (
-    <DndContext sensors={sensors} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <div className="app-container">
-        <SidePanel />
+        <SidePanel onAddWindow={handleNewWindow}/>
         <div className="divider" />
         <Canvas
+          innerRef={canvasRef}
           windows={windows}
           onClose={handleCloseWindow}
-          onWindowDragEnd={updateWindowPosition}
         />
       </div>
     </DndContext>
