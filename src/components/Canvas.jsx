@@ -1,6 +1,6 @@
 import FloatingWindow from './FloatingWindow';
 
-function Canvas({ windows, onClose, onDragEnd }) {
+function Canvas({ windows, onClose}) {
   return (
     <div className="canvas">
       {windows.map(w => (
@@ -10,7 +10,6 @@ function Canvas({ windows, onClose, onDragEnd }) {
           type={w.type}
           position={w.position}
           onClose={onClose}
-          onDragEnd={onDragEnd}
         />
       ))}
     </div>
