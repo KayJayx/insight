@@ -1,4 +1,4 @@
-function SidePanel({ onAddWIndow }) {
+function SidePanel({ onAddWindow }) {
 
   return (
     // Side Panel Div
@@ -8,7 +8,7 @@ function SidePanel({ onAddWIndow }) {
       <h3>Widgets</h3>
 
       {/* First Button */}
-      <button className="icon-button" onClick={onAddWIndow}>
+      <button className="icon-button" onClick={onAddWindow}>
         Add Window
       </button>
 
