@@ -4,7 +4,7 @@ import { useDraggable } from '@dnd-kit/core';
 function FloatingWindow({ id, type, position, onClose }) {
   const [redisKey, setRedisKey] = useState("");
 
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, /*transform,*/ isDragging } = useDraggable({
     id: id,
     data: { type }
   });
@@ -22,14 +22,16 @@ function FloatingWindow({ id, type, position, onClose }) {
     opacity: isDragging ? 0.6 : 1,
     display: 'flex',
     flexDirection: 'column',
+    /*
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
+      : 'none',
+    */
     transition: isDragging ? 'none' : 'transform 150ms ease'
   };
 
   return (
-    <div style={style}>
+    <div ref={setNodeRef} style={style}>
       <div
         style={{
           backgroundColor: '#f5f5f5',
@@ -64,7 +66,6 @@ function FloatingWindow({ id, type, position, onClose }) {
       </div>
 
       <div
-        ref={setNodeRef}
         {...listeners}
         {...attributes}
         style={{
