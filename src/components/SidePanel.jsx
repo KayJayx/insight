@@ -1,5 +1,4 @@
 function SidePanel({ onAddWindow }) {
-
   return (
     // Side Panel Div
     <div className="side-panel">
