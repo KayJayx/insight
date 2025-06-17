@@ -1,18 +1,8 @@
-import { useDroppable } from '@dnd-kit/core';
 import FloatingWindow from './FloatingWindow';
 
 function Canvas({ windows, onClose, onWindowDragEnd }) {
-  const { isOver, setNodeRef } = useDroppable({ id: 'canvas-dropzone' });
-
   return (
-    <div
-      id="canvas"
-      ref={setNodeRef}
-      className="canvas"
-      style={{
-        backgroundColor: isOver ? '#f0f0f0' : '#fafafa',
-      }}
-    >
+    <div className="canvas">
       {windows.map(w => (
         <FloatingWindow
           key={w.id}
