@@ -1,8 +1,8 @@
 import FloatingWindow from './FloatingWindow';
 
-function Canvas({ windows, onClose}) {
+const Canvas = ({ innerRef, windows, onClose}) => {
   return (
-    <div className="canvas">
+    <div ref={innerRef} className="canvas">
       {windows.map(w => (
         <FloatingWindow
           key={w.id}
