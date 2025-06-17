@@ -10,10 +10,7 @@ function Canvas({ windows, onClose, onWindowDragEnd }) {
       ref={setNodeRef}
       className="canvas"
       style={{
-        flex: 1,
-        position: 'relative',
         backgroundColor: isOver ? '#f0f0f0' : '#fafafa',
-        overflow: 'hidden',
       }}
     >
       {windows.map(w => (
