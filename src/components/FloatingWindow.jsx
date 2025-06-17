@@ -1,29 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 
-function FloatingWindow({ id, type, position, onClose, onDragEnd }) {
+function FloatingWindow({ id, type, position, onClose }) {
   const [redisKey, setRedisKey] = useState("");
-  const [basePosition, setBasePosition] = useState(position);
 
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id,
+    id: id,
     data: { type }
   });
 
-  // Handle drag end update
-  useEffect(() => {
-    if (!isDragging && transform) {
-      const newX = basePosition.x + transform.x;
-      const newY = basePosition.y + transform.y;
-      onDragEnd(id, { x: newX, y: newY });
-      setBasePosition({ x: newX, y: newY });
-    }
-  }, [isDragging]);
-
   const style = {
     position: 'absolute',
-    top: basePosition.y,
-    left: basePosition.x,
+    top: position.y,
+    left: position.x,
     width: '300px',
     height: '200px',
     backgroundColor: 'white',
