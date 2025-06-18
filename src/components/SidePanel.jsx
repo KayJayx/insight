@@ -6,13 +6,28 @@ function SidePanel({ onAddWindow }) {
       {/* Widgets Title */}
       <h3>Widgets</h3>
       <hr />
-      {/* First Button */}
       <button className="icon-button" onClick={onAddWindow}>
-        Add Text
+        Text Display
       </button>
       <hr />
       <button className="icon-button" onClick={onAddWindow}>
-        Add Chart
+        Guage Meter
+      </button>
+      <hr />
+      <button className="icon-button" onClick={onAddWindow}>
+        Plot/Chart
+      </button>
+      <hr />
+      <button className="icon-button" onClick={onAddWindow}>
+        Data Table
+      </button>
+      <hr />
+      <button className="icon-button" onClick={onAddWindow}>
+        Log Viewer
+      </button>
+      <hr />
+      <button className="icon-button" onClick={onAddWindow}>
+        Time Display
       </button>
       <hr />
 
