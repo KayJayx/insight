@@ -5,11 +5,16 @@ function SidePanel({ onAddWindow }) {
 
       {/* Widgets Title */}
       <h3>Widgets</h3>
-
+      <hr />
       {/* First Button */}
       <button className="icon-button" onClick={onAddWindow}>
-        Add Window
+        Add Text
       </button>
+      <hr />
+      <button className="icon-button" onClick={onAddWindow}>
+        Add Chart
+      </button>
+      <hr />
 
     </div>
   );
