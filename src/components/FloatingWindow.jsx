@@ -4,7 +4,7 @@ import { useDraggable } from '@dnd-kit/core';
 function FloatingWindow({ id, type, position, onClose }) {
   const [redisKey, setRedisKey] = useState("");
 
-  const { attributes, listeners, setNodeRef, /*transform,*/ isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: id,
     data: { type }
   });
@@ -21,13 +21,7 @@ function FloatingWindow({ id, type, position, onClose }) {
     zIndex: 10,
     opacity: isDragging ? 0.6 : 1,
     display: 'flex',
-    flexDirection: 'column',
-    /*
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : 'none',
-    */
-    transition: isDragging ? 'none' : 'transform 150ms ease'
+    flexDirection: 'column'
   };
 
   return (
@@ -41,12 +35,17 @@ function FloatingWindow({ id, type, position, onClose }) {
           alignItems: 'center'
         }}
       >
-        <input
-          type="text"
-          placeholder="Redis Key"
-          value={redisKey}
-          onChange={(e) => setRedisKey(e.target.value)}
-          style={{ flexGrow: 1, marginRight: '10px' }}
+        <div
+          {...listeners}
+          {...attributes}
+          style={{
+            width: '20px',
+            height: '20px',
+            bottom: '0',
+            right: '0',
+            backgroundColor: '#ddd',
+            cursor: isDragging ? 'grabbing' : 'grab',
+          }}
         />
         <button
           onClick={() => onClose(id)}
@@ -62,6 +61,13 @@ function FloatingWindow({ id, type, position, onClose }) {
       </div>
 
       <div style={{ flexGrow: 1, padding: '10px' }}>
+        <input
+          type="text"
+          placeholder="Redis Key"
+          value={redisKey}
+          onChange={(e) => setRedisKey(e.target.value)}
+          style={{ flexGrow: 1, marginRight: '10px' }}
+        />
         <p>Component content will appear here.</p>
       </div>
 
