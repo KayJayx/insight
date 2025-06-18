@@ -14,7 +14,6 @@
   height: 100%;
   background-color: #f2f2f2;
   align-items: center;
-  border: 2px solid red;
 }
 .side-panel h3 {
   font-size: 1.6rem;
@@ -35,7 +34,14 @@
   height: 50px;
   background-color: white;
   border: none;
+  border-radius: 5px;
   text-align: center;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.666);
+}
+.icon-button:hover {
+  background-color: rgba(199, 206, 210, 0.666);
+  cursor: pointer;
 }
 
 /* Divider styling for the application */
@@ -51,5 +57,4 @@
   height: 100%;
   position: relative;
   overflow: hidden;
-  border: 2px solid lime;
 }
