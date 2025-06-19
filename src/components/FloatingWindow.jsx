@@ -29,7 +29,6 @@ function FloatingWindow({ id, type, position, onClose }) {
       <div
         style={{
           backgroundColor: '#f5f5f5',
-          padding: '5px 10px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
@@ -39,11 +38,8 @@ function FloatingWindow({ id, type, position, onClose }) {
           {...listeners}
           {...attributes}
           style={{
-            width: '20px',
-            height: '20px',
-            bottom: '0',
-            right: '0',
-            backgroundColor: '#ddd',
+            width: '300px',
+            height: '25px',
             cursor: isDragging ? 'grabbing' : 'grab',
           }}
         />
@@ -70,21 +66,7 @@ function FloatingWindow({ id, type, position, onClose }) {
         />
         <p>Component content will appear here.</p>
       </div>
-
-      <div
-        {...listeners}
-        {...attributes}
-        style={{
-          position: 'absolute',
-          width: '20px',
-          height: '20px',
-          bottom: '0',
-          right: '0',
-          backgroundColor: '#ddd',
-          cursor: isDragging ? 'grabbing' : 'grab',
-          zIndex: 20
-        }}
-      />
+      
     </div>
   );
 }
