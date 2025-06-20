@@ -9,6 +9,7 @@ const Canvas = ({ innerRef, windows, onClose}) => {
           id={w.id}
           type={w.type}
           position={w.position}
+          size={w.size}
           onClose={onClose}
         />
       ))}
