@@ -24,7 +24,7 @@
   margin: 0;
   padding: 0;
   border: none;
-  border-top: 1.2px solid rgba(0, 0, 0, 0.666); /* light gray line */
+  border-top: 1px solid rgba(0, 0, 0, 0.666); /* light gray line */
   width: 90%;
 }
 
