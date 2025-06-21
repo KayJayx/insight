@@ -21,6 +21,38 @@ function App() {
     );
   }, []);
 
+  const sweptCollisionCheck = useCallback((from, to, width, height, windows, ignoreId) => {
+    const steps = 10; // more steps = smoother prevention
+    const dx = (to.x - from.x) / steps;
+    const dy = (to.y - from.y) / steps;
+  
+    for (let i = 1; i <= steps; i++) {
+      const testRect = {
+        x: from.x + dx * i,
+        y: from.y + dy * i,
+        width,
+        height,
+      };
+  
+      for (const win of windows) {
+        if (win.id === ignoreId) continue;
+  
+        const otherRect = {
+          x: win.position.x,
+          y: win.position.y,
+          width: win.size.width,
+          height: win.size.height,
+        };
+  
+        if (checkCollision(testRect, otherRect)) {
+          return true; // COLLISION somewhere along the path
+        }
+      }
+    }
+  
+    return false; // clear path
+  }, [checkCollision]);
+
   const handleDragEnd = useCallback(() => {
     dragStateRef.current = null;
   }, []);
@@ -187,6 +219,20 @@ function App() {
   
     proposedX = Math.max(0, Math.min(proposedX, boundaryX));
     proposedY = Math.max(0, Math.min(proposedY, boundaryY));
+
+    const pathBlocked = sweptCollisionCheck(
+      dragState.lastAccepted,
+      { x: proposedX, y: proposedY },
+      width,
+      height,
+      windows,
+      dragState.id
+    );
+    
+    if (pathBlocked) {
+      proposedX = dragState.lastAccepted.x;
+      proposedY = dragState.lastAccepted.y;
+    }
   
     setWindows(prev =>
       prev.map(w =>
@@ -205,7 +251,7 @@ function App() {
 
     dragState.wasBlocked.x = !crossedX;
     dragState.wasBlocked.y = !crossedY;
-  }, [checkCollision, windows]);
+  }, [checkCollision, windows, sweptCollisionCheck]);
 
   const handleDragStart = useCallback((event) => {
     const { id } = event.active;
