@@ -1,7 +1,7 @@
 import '../App.css';
 import { useDraggable } from '@dnd-kit/core';
 
-function FloatingWindow({ id, type, position, size, onClose, onMouseDown, windows }) {
+function FloatingWindow({ id, type, position, size, onClose, onMouseDown, onResizeMouseDown, windows }) {
 
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: id,
@@ -61,6 +61,11 @@ function FloatingWindow({ id, type, position, size, onClose, onMouseDown, window
       <div style={{ flexGrow: 1, padding: '10px' }}>
         <p>Component content will appear here.</p>
       </div>
+
+      <div
+        className="resize-handle"
+        onMouseDown={(e) => onResizeMouseDown(e, id)}
+      />
 
     </div>
   );

@@ -9,6 +9,7 @@ function App() {
   const [windows, setWindows] = useState([]);
   const canvasRef = useRef(null);
   const dragStateRef = useRef(null);
+  const resizingRef = useRef(null);
   const windowWidth = 300;
   const windowHeight = 200;
 
@@ -73,6 +74,51 @@ function App() {
     setWindows(prev => [...prev, newWindow]);
   }, []);
 
+  const handleResizing = useCallback((e) => {
+    const ref = resizingRef.current;
+    if (!ref) return;
+  
+    const dx = e.clientX - ref.startX;
+    const dy = e.clientY - ref.startY;
+  
+    setWindows(prev =>
+      prev.map(w =>
+        w.id === ref.id
+          ? {
+              ...w,
+              size: {
+                width: Math.max(100, ref.startWidth + dx),
+                height: Math.max(100, ref.startHeight + dy)
+              }
+            }
+          : w
+      )
+    );
+  }, []);
+
+  const stopResizing = useCallback(() => {
+    resizingRef.current = null;
+    window.removeEventListener('mousemove', handleResizing);
+    window.removeEventListener('mouseup', stopResizing);
+  }, [handleResizing]);
+
+  const handleResizeMouseDown = useCallback((e, id) => {
+    e.stopPropagation();
+    const win = windows.find(w => w.id === id);
+    if (!win) return;
+  
+    resizingRef.current = {
+      id,
+      startX: e.clientX,
+      startY: e.clientY,
+      startWidth: win.size.width,
+      startHeight: win.size.height
+    };
+  
+    window.addEventListener('mousemove', handleResizing);
+    window.addEventListener('mouseup', stopResizing);
+  }, [windows, handleResizing, stopResizing]);
+
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
       <div className="app-container">
@@ -83,6 +129,7 @@ function App() {
           windows={windows}
           onClose={handleCloseWindow}
           onMouseDown={handleBringToFront}
+          onResizeMouseDown={handleResizeMouseDown}
         />
       </div>
     </DndContext>

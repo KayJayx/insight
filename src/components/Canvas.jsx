@@ -1,6 +1,6 @@
 import FloatingWindow from './FloatingWindow';
 
-const Canvas = ({ innerRef, windows, onClose, onMouseDown}) => {
+const Canvas = ({ innerRef, windows, onClose, onMouseDown, onResizeMouseDown }) => {
   return (
     <div ref={innerRef} className="canvas">
       {windows.map(w => (
@@ -12,6 +12,7 @@ const Canvas = ({ innerRef, windows, onClose, onMouseDown}) => {
           size={w.size}
           onClose={onClose}
           onMouseDown={onMouseDown}
+          onResizeMouseDown={onResizeMouseDown}
           windows={windows}
         />
       ))}
