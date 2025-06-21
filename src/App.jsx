@@ -45,13 +45,22 @@ function App() {
     if (win) {
       dragStateRef.current = {
         id,
-        origin: { x: win.position.x, y: win.position.y }
+        origin: { x: win.position.x, y: win.position.y },
+        size: { width: win.size.width, height: win.size.height }
       };
     }
   }, [windows]);
 
   const handleCloseWindow = useCallback((id) => {
     setWindows(prev => prev.filter(w => w.id !== id));
+  }, []);
+
+  const handleBringToFront = useCallback((id) => {
+    setWindows(prev => {
+      const rest = prev.filter(w => w.id !== id);
+      const focused = prev.find(w => w.id === id);
+      return [...rest, focused]; // Move to end = on top
+    });
   }, []);
 
   const handleNewWindow = useCallback(() => {
@@ -73,6 +82,7 @@ function App() {
           innerRef={canvasRef}
           windows={windows}
           onClose={handleCloseWindow}
+          onMouseDown={handleBringToFront}
         />
       </div>
     </DndContext>
