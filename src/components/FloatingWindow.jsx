@@ -1,7 +1,7 @@
 import '../App.css';
 import { useDraggable } from '@dnd-kit/core';
 
-function FloatingWindow({ id, type, position, size, onClose }) {
+function FloatingWindow({ id, type, position, size, onClose, onMouseDown, windows }) {
 
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: id,
@@ -18,14 +18,14 @@ function FloatingWindow({ id, type, position, size, onClose }) {
     border: '0.5px solid rgba(0, 0, 0, 0.666)',
     boxShadow: '2px 2px 8px rgba(0,0,0,0.2)',
     boxSizing: 'border-box',
-    zIndex: 10,
+    zIndex: windows.findIndex(w => w.id === id) + 1,
     opacity: isDragging ? 0.6 : 1,
     display: 'flex',
     flexDirection: 'column'
   };
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} onMouseDown={() => onMouseDown(id)}>
       <div
         style={{
           backgroundColor: '#f5f5f5',
