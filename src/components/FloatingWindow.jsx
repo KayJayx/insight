@@ -18,10 +18,12 @@ function FloatingWindow({ id, type, position, size, onClose, onMouseDown, window
     border: '0.5px solid rgba(0, 0, 0, 0.666)',
     boxShadow: '2px 2px 8px rgba(0,0,0,0.2)',
     boxSizing: 'border-box',
+    borderRadius: '8px',
     zIndex: windows.findIndex(w => w.id === id) + 1,
     opacity: isDragging ? 0.6 : 1,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    overflow: 'hidden'
   };
 
   return (
