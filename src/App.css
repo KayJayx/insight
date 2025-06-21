@@ -58,3 +58,13 @@
   position: relative;
   overflow: hidden;
 }
+
+.resize-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+  z-index: 10;
+}
